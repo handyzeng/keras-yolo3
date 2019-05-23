@@ -8,7 +8,6 @@ import zmq
 
 FLAGS = None
 
-
 def main():
     try:
         context = zmq.Context()
@@ -30,8 +29,8 @@ def main():
                     logging.warning("Wrong format task data received")
                     continue
                 task_id = task['task_id']
-
-                sender.send(data)
+                logging.info(task_id)
+                sender.send(pickle.dumps(task))
             except Exception as err:
                 logging.error(str(err))
 
@@ -42,7 +41,7 @@ def main():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(argument_default=argparse.SUPPRESS)
     parser.add_argument(
-        '--gpus', type=str, default="0", help='GPUs to use'
+        '--gpu', type=str, default="0", help='GPUs to use'
     ) 
     parser.add_argument(
         '--recv-addr', type=str, default="127.0.0.1", help='IP address of the task sender'
