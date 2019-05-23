@@ -147,8 +147,8 @@ class YOLO(object):
             right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
             #print(label, (left, top), (right, bottom))
             obj = {'label': predicted_class,
-                    'bbox': { 'left': str(left), 'top': str(top), 'right': str(right), 'bottom': str(bottom) },
-                    'score': str(score)
+                    'bbox': { 'left': int(left), 'top': int(top), 'right': int(right), 'bottom': int(bottom) },
+                    'score': round(float(score), 4)
             }
             objs.append(obj)
 
